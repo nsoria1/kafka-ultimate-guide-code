@@ -1,0 +1,7 @@
+1. Docker compose up to get everything up and running (with docker on 6gb ram)
+2. Create a connector while doing a post
+    curl -X POST http://localhost:8083/connectors -H 'Content-Type: application/json' -d "$(cat curl_post_data.json)"
+3. Publish an event for the topic mentioned in the json from the post 
+    docker exec -it kafka-connect-example_kafka_1 bash -c "echo '{\"test_id\":\"test-1\", \"description\":\"my first elasticsearch sink connector with kafka connect version 1\"}' | /opt/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic bad-bunny"
+4. Read message published
+    docker exec -it 60c34a787d24 kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic bad-bunny --from-beginning
